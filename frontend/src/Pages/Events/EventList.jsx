@@ -80,7 +80,7 @@ const EventList = ({ events, setEvents }) => {
 
     return (
         <>
-            <h1 className='text-center display-4 pt-5'>Event Lists</h1>
+            <h1 className='text-center display-4 pt-5 text-light'>Event Lists</h1>
             <div className="event-list">
                 <table className="table table-hover">
                     <thead>
