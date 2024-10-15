@@ -1,15 +1,19 @@
 {
     "version": 2,
     "builds": [
-        {
-            "src": "dist/events/**",
-            "use": "@vercel/static"
+      {
+        "src": "package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "build"
         }
+      }
     ],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/index.html"
-        }
+      {
+        "src": "/(.*)",
+        "dest": "/build/$1"
+      }
     ]
-}
+  }
+  
