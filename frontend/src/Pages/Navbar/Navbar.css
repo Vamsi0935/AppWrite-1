@@ -8,7 +8,7 @@
 }
 
 .nav-link {
-    margin-left: 15px;
+    margin-left: 55px;
     font-size: 17px;
     font-weight: 500;
     color: #007bff;
@@ -18,7 +18,7 @@
 }
 
 .nav-link:hover {
-    background-color: #e7f1ff;
-    color: black;
+    background-color: black;
+    color: white;
     text-decoration: none;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Eventform.css';
 import EventList from './EventList';
 import { ID } from 'appwrite';
@@ -14,6 +14,20 @@ const EventForm = () => {
     const [success, setSuccess] = useState('');
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    
+    const fetchEvents = async () => {
+        try {
+            const response = await databases.listDocuments(
+                "670c9d0800197fd1f0c9", // Database ID
+                "670c9d130038756ef057" // Collection ID
+            );
+            setEvents(response.documents);
+        } catch (error) {
+            console.error('Fetch Events Error:', error);
+            setError('Failed to fetch events.');
+        }
+    };
 
     const createEvent = async (title, description, date, location) => {
         try {
@@ -44,10 +58,7 @@ const EventForm = () => {
 
         try {
             const eventData = await createEvent(title, description, date, location);
-            setEvents((prevEvents) => [
-                ...prevEvents,
-                { id: eventData.$id, title, description, date, location }
-            ]);
+            fetchEvents();
             setSuccess('Event created successfully!');
             Swal.fire('Success!', 'Event created successfully!', 'success');
             setTitle('');
@@ -62,6 +73,13 @@ const EventForm = () => {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchEvents();
+        const intervalId = setInterval(fetchEvents, 5000);
+
+        return () => clearInterval(intervalId);
+    }, []);
 
     return (
         <>
